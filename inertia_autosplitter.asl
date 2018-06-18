@@ -40,4 +40,8 @@ update {
             vars.realTimerOffset = 0f;
         }
     }
+    // Also reset offset on livesplit reset
+    if (current.inGame == 0 && current.timer == 0f) {
+        vars.realTimerOffset = 0f;
+    }
 }
