@@ -4,7 +4,7 @@ state("Inertia-Win64-Shipping") {
     // 1 if we are inGame, 0 elsewhere
     int inGame: "Inertia-Win64-Shipping.exe", 0x3176558;
     // Time in seconds, same as shown in the game
-    float timer: "Inertia-Win64-Shipping.exe", 0x031B1700, 0x50, 0x70, 0x5E8, 0x59C;
+    float timer: "Inertia-Win64-Shipping.exe", 0x0316F6D0, 0x7C0, 0x11C;
 }
 
 init {
