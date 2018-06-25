@@ -56,9 +56,9 @@ update {
     // SPLIT:
     // * Ignore first split (we have a count increse at lvl 1 loading)
     //   Time "3f" is arbitrary (I don't think we'll finish lvl 1 in 3s xD)
-    // * For end of run, check if the menu is shown
+    // * For end of run, check if the menu is shown (previous value + 1)
     if ((current.timer > 3f && current.count != old.count) ||
-        (current.levelID == 32 && old.showMenu != current.showMenu)) {
+        (current.levelID == 32 && current.showMenu == old.showMenu + 1)) {
         current.levelID++;
     }
 }
