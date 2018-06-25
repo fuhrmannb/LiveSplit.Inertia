@@ -1,12 +1,12 @@
 state("Inertia-Win64-Shipping") {
     // Counter that increases each time we load a level or we go to the main menu
-    int count: "Inertia-Win64-Shipping.exe", 0x02FB49C0, 0x60, 0x50, 0x68, 0x2F8, 0x90, 0x230;
+    int count: "Inertia-Win64-Shipping.exe", 0x328065C;
     // 1 if we are inGame, 0 elsewhere
-    int inGame: "Inertia-Win64-Shipping.exe", 0x3176558;
+    int inGame: "Inertia-Win64-Shipping.exe", 0x3175558;
     // Time in seconds, same as shown in the game
-    float timer: "Inertia-Win64-Shipping.exe", 0x0316F6D0, 0x7C0, 0x11C;
+    float timer: "Inertia-Win64-Shipping.exe", 0x03068530, 0x47C;
     // Value that changed when a menu is shown. Used for the end of the run.
-    int showMenu: "Inertia-Win64-Shipping.exe", 0x2FBEB20;
+    int showMenu: "Inertia-Win64-Shipping.exe", 0x2FBDB20;
 }
 
 init {
