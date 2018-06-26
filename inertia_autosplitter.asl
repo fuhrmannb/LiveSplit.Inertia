@@ -16,6 +16,8 @@ init {
     vars.realTimerOffset = 0f;
     // Current level ID
     current.levelID = 0;
+    // True if the timer has reset once (to avoid first reset)
+    vars.hasResetOnce = false;
 }
 
 start {
@@ -37,10 +39,11 @@ gameTime {
 update {
     // Current hack for lvl 1 to not reset IGT timer
     if (current.timer < old.timer) {
-        if (old.count == current.count) {
+        if (vars.hasResetOnce && old.count == current.count) {
             // We suppose we reset in-game (using R) at lvl 1, we don't reset timer
             vars.realTimerOffset += old.timer;
         } else {
+            vars.hasResetOnce = true;
             vars.realTimerOffset = 0f;
         }
     }
@@ -50,6 +53,7 @@ update {
         current.levelID = 0;
         // Also reset offset on livesplit reset
         vars.realTimerOffset = 0f;
+        vars.hasResetOnce = false;
     }
     // START
     if (current.levelID == 0 && old.inGame == 0 && current.inGame == 1) {
