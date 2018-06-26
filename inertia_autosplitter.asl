@@ -7,6 +7,8 @@ state("Inertia-Win64-Shipping") {
     float timer: "Inertia-Win64-Shipping.exe", 0x0316E6D0, 0x7C0, 0x11C;
     // Value that changed when a menu is shown. Used for the end of the run.
     int showMenu: "Inertia-Win64-Shipping.exe", 0x2FBDB20;
+    // 3 when game is in pause menu, 2 elsewhere
+    int inPauseMenu: "Inertia-Win64-Shipping.exe", 0x31A56B4;
 }
 
 init {
@@ -57,8 +59,10 @@ update {
     // * Ignore first split (we have a count increse at lvl 1 loading)
     //   Time "3f" is arbitrary (I don't think we'll finish lvl 1 in 3s xD)
     // * For end of run, check if the menu is shown (previous value + 1)
-    if ((current.timer > 3f && current.count != old.count) ||
-        (current.levelID == 32 && current.showMenu == old.showMenu + 1)) {
+    if (current.inPauseMenu != 3 && (
+        (current.timer > 3f && current.count != old.count) ||
+        (current.levelID == 32 && current.showMenu == old.showMenu + 1))
+       ) {
         current.levelID++;
     }
 }
