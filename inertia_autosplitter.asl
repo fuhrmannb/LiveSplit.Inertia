@@ -18,6 +18,8 @@ init {
     current.levelID = 0;
     // True if the timer has reset once (to avoid first reset)
     vars.hasResetOnce = false;
+    // Time where last split has be done
+    vars.lastSplitTime = 0f;
 }
 
 start {
@@ -50,9 +52,10 @@ update {
 
     // RESET
     if (current.inGame == 0 && current.timer == 0f) {
+        // Reset custom variables
         current.levelID = 0;
-        // Also reset offset on livesplit reset
         vars.realTimerOffset = 0f;
+        vars.lastSplitTime = 0f;
         vars.hasResetOnce = false;
     }
     // START
@@ -60,13 +63,16 @@ update {
         current.levelID = 1;
     }
     // SPLIT:
+    // * Not in pause menu
+    // * For last level, avoid "double split" bug (Time "3f" is arbitrary)
     // * Ignore first split (we have a count increse at lvl 1 loading)
     //   Time "3f" is arbitrary (I don't think we'll finish lvl 1 in 3s xD)
     // * For end of run, check if the menu is shown (previous value + 1)
     if (current.inPauseMenu != 3 && (
         (current.timer > 3f && current.count != old.count) ||
-        (current.levelID == 32 && current.showMenu == old.showMenu + 1))
+        (current.levelID == 32 && current.timer > vars.lastSplitTime + 3f && current.showMenu != old.showMenu))
        ) {
         current.levelID++;
+        vars.lastSplitTime = current.timer;
     }
 }
